@@ -1,34 +1,27 @@
-require_relative 'stackUsingLL'
+require_relative 'stack'
 
 stack = LinkedList::Stack.new
 
 balanced = true
+bracket_pairs = {
+    '{' => '}', '(' => ')', '[' => ']'
+}
 
 file = File.read('text.txt')
 file = file.split("")
 
 file.each do |ele|
-    if ele == "(" || ele == "{" || ele == "["
+    if bracket_pairs.key?(ele)
         stack.push(ele)
-    elsif ele == ")"
-        if stack.pop != "("
-            balanced = false
-            break
-        end
-    elsif ele == "}"
-        if stack.pop != "{"
-            balanced = false
-            break
-        end
-    elsif ele == "]"
-        if stack.pop != "["
+    elsif bracket_pairs.value?(ele)
+        if stack.isEmpty || bracket_pairs[stack.pop] != ele
             balanced = false
             break
         end
     end
 end
 
-if balanced && stack.top == -1
+if balanced && stack.isEmpty
     puts "balanced"
 else
     puts "Not balanced"

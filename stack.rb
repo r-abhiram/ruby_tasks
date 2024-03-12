@@ -1,30 +1,41 @@
-require_relative 'stackUsingLL'
-
-stack = LinkedList::Stack.new
-
-puts "Enter a choice: \n1 -> Push\n2 -> Pop\n3 -> Sum\n4 -> Exit"
-while true
-    print "Choice: "
-    choice = gets.chomp.to_i
-    case choice
-    when 1
-        puts "Enter a number: "
-        number = gets.chomp.to_i
-        stack.push(number)
-    when 2
-        if stack.top != -1
-            poped_number = stack.pop
-            puts "Popped number: #{poped_number}"
-        else
-            puts "Stack is empty"
+module LinkedList
+    class Node
+        attr_accessor :val, :addr
+    
+        def initialize(val, addr = nil)
+            @val = val
+            @addr = addr
         end
-    when 3
-        puts "The sum of elements is: #{stack.sum}"
-    when 4
-        break
-    else
-        puts "Invalid choice"
+    
+    end
+    
+    class Stack
+        def initialize()
+            @head = nil
+            @sum = 0
+        end
+    
+        def push(value)
+            @head = Node.new(value, @head)
+    
+            @sum += value if value.is_a? Numeric
+        end
+    
+        def pop
+            ele = @head.val
+            @head = @head.addr
+    
+            @sum -= ele if ele.is_a? Numeric
+            return ele
+        end
+
+        def isEmpty
+            return @head == nil ? true : false
+        end
+
+        def sum
+            return @sum
+        end
+    
     end
 end
-
-puts stack
