@@ -1,48 +1,34 @@
-class Stack
-    attr_accessor :top
-    def initialize
-        @arr = []
-        @top = -1
-    end
+require_relative 'stackUsingLL'
 
-    def push(num)
-        @arr.append(num)
-        @top += 1
-    end
+stack = LinkedList::Stack.new
 
-    def pop
-        @top -= 1
-        return @arr.pop
-    end
-
-end
-
-op = Stack.new
 balanced = true
+
 file = File.read('text.txt')
 file = file.split("")
+
 file.each do |ele|
     if ele == "(" || ele == "{" || ele == "["
-        op.push(ele)
+        stack.push(ele)
     elsif ele == ")"
-        if op.pop != "("
+        if stack.pop != "("
             balanced = false
             break
         end
     elsif ele == "}"
-        if op.pop != "{"
+        if stack.pop != "{"
             balanced = false
             break
         end
     elsif ele == "]"
-        if op.pop != "["
+        if stack.pop != "["
             balanced = false
             break
         end
     end
 end
 
-if balanced && op.top == -1
+if balanced && stack.top == -1
     puts "balanced"
 else
     puts "Not balanced"

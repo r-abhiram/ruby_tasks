@@ -1,30 +1,7 @@
-class Stack
-    attr_accessor :top
-    def initialize
-        @arr = []
-        @top = -1
-        @sum = 0
-    end
+require_relative 'stackUsingLL'
 
-    def push(num)
-        @arr.append(num)
-        @top += 1
-        @sum += num
-    end
+stack = LinkedList::Stack.new
 
-    def pop
-        @top -= 1
-        element = @arr.pop
-        @sum -= element
-        return element
-    end
-
-    def sum
-        return @sum
-    end
-end
-
-op = Stack.new
 puts "Enter a choice: \n1 -> Push\n2 -> Pop\n3 -> Sum\n4 -> Exit"
 while true
     print "Choice: "
@@ -33,20 +10,21 @@ while true
     when 1
         puts "Enter a number: "
         number = gets.chomp.to_i
-        op.push(number)
+        stack.push(number)
     when 2
-        if op.top != -1
-            poped_number = op.pop
+        if stack.top != -1
+            poped_number = stack.pop
             puts "Popped number: #{poped_number}"
         else
             puts "Stack is empty"
         end
     when 3
-        sum = op.sum
-        puts "The sum of elements is: #{sum}"
+        puts "The sum of elements is: #{stack.sum}"
     when 4
         break
     else
         puts "Invalid choice"
     end
 end
+
+puts stack
