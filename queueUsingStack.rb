@@ -1,14 +1,14 @@
 require_relative 'stackUsingLL'
 
 class Queue
-    attr_accessor :stack1, :stack2
+    attr_accessor :stack1
 
     def initialize
         @stack1 = LinkedList::Stack.new
-        @stack2 = LinkedList::Stack.new
     end
 
     def enqueue(value)
+        @stack2 = LinkedList::Stack.new
         while @stack1.top != -1
             @stack2.push(@stack1.pop)
         end
